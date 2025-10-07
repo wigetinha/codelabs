@@ -121,6 +121,7 @@ class ThemeProvider extends InheritedWidget {
     );
   }
 
+  // *** Usa BottomAppBarThemeData (coincide con lo que espera ThemeData.copyWith) ***
   BottomAppBarThemeData bottomAppBarTheme(ColorScheme colors) {
     return BottomAppBarThemeData(color: colors.surface, elevation: 0);
   }
@@ -147,11 +148,12 @@ class ThemeProvider extends InheritedWidget {
   ThemeData light([Color? targetColor]) {
     final colorScheme = colors(Brightness.light, targetColor);
     return ThemeData.light().copyWith(
+      pageTransitionsTheme: pageTransitionsTheme,
       colorScheme: colorScheme,
       appBarTheme: appBarTheme(colorScheme),
       cardTheme: cardTheme(),
       listTileTheme: listTileTheme(colorScheme),
-      bottomAppBarTheme: bottomAppBarTheme(colorScheme),
+      bottomAppBarTheme: bottomAppBarTheme(colorScheme), // ← OK
       bottomNavigationBarTheme: bottomNavigationBarTheme(colorScheme),
       navigationRailTheme: navigationRailTheme(colorScheme),
       tabBarTheme: tabBarTheme(colorScheme),
@@ -163,11 +165,12 @@ class ThemeProvider extends InheritedWidget {
   ThemeData dark([Color? targetColor]) {
     final colorScheme = colors(Brightness.dark, targetColor);
     return ThemeData.dark().copyWith(
+      pageTransitionsTheme: pageTransitionsTheme,
       colorScheme: colorScheme,
       appBarTheme: appBarTheme(colorScheme),
       cardTheme: cardTheme(),
       listTileTheme: listTileTheme(colorScheme),
-      bottomAppBarTheme: bottomAppBarTheme(colorScheme),
+      bottomAppBarTheme: bottomAppBarTheme(colorScheme), // ← OK
       bottomNavigationBarTheme: bottomNavigationBarTheme(colorScheme),
       navigationRailTheme: navigationRailTheme(colorScheme),
       tabBarTheme: tabBarTheme(colorScheme),
@@ -176,9 +179,7 @@ class ThemeProvider extends InheritedWidget {
     );
   }
 
-  ThemeMode themeMode() {
-    return settings.value.themeMode;
-  }
+  ThemeMode themeMode() => settings.value.themeMode;
 
   ThemeData theme(BuildContext context, [Color? targetColor]) {
     final brightness = MediaQuery.of(context).platformBrightness;
@@ -204,9 +205,7 @@ class ThemeSettings {
   final ThemeMode themeMode;
 }
 
-Color randomColor() {
-  return Color(Random().nextInt(0xFFFFFFFF));
-}
+Color randomColor() => Color(Random().nextInt(0xFFFFFFFF));
 
 const linkColor = CustomColor(name: 'Link Color', color: Color(0xFF00B0FF));
 
@@ -221,7 +220,5 @@ class CustomColor {
   final Color color;
   final bool blend;
 
-  Color value(ThemeProvider provider) {
-    return provider.custom(this);
-  }
+  Color value(ThemeProvider provider) => provider.custom(this);
 }

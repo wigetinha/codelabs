@@ -10,6 +10,7 @@ import '../../../shared/extensions.dart';
 import '../../../shared/playback/bloc/bloc.dart';
 import '../../../shared/views/image_clipper.dart';
 import '../../../shared/views/views.dart';
+import '../../../shared/views/hoverable_song_play_button.dart';
 
 class PlaylistSongs extends StatelessWidget {
   const PlaylistSongs({
@@ -41,9 +42,17 @@ class PlaylistSongs extends StatelessWidget {
       rowBuilder: (context, index) => DataRow.byIndex(
         index: index,
         cells: [
+          // Número con overlay de botón Play al hacer hover (desktop/web)
           DataCell(
-            Center(
-              child: Text((index + 1).toString(), textAlign: TextAlign.center),
+            HoverableSongPlayButton(
+              hoverMode: HoverMode.overlay,
+              song: playlist.songs[index],
+              child: Center(
+                child: Text(
+                  (index + 1).toString(),
+                  textAlign: TextAlign.center,
+                ),
+              ),
             ),
           ),
           DataCell(
@@ -62,6 +71,7 @@ class PlaylistSongs extends StatelessWidget {
         ],
       ),
       itemBuilder: (song, index) {
+        // Vista compacta (lista) para pantallas pequeñas
         return ListTile(
           onTap: () => BlocProvider.of<PlaybackBloc>(
             context,
