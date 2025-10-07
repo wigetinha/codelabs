@@ -28,16 +28,21 @@ class _HomeScreenState extends State<HomeScreen> {
     final Playlist newReleases = playlistProvider.newReleases;
     final ArtistsProvider artistsProvider = ArtistsProvider();
     final List<Artist> artists = artistsProvider.artists;
+
     return LayoutBuilder(
       builder: (context, constraints) {
         return Scaffold(
           body: SingleChildScrollView(
             child: AdaptiveColumn(
               children: [
+                // Header
                 AdaptiveContainer(
                   columnSpan: 12,
                   child: Padding(
-                    padding: const EdgeInsets.all(2),
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 20,
+                      vertical: 20,
+                    ),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
@@ -53,6 +58,8 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                   ),
                 ),
+
+                // Highlight + Artists
                 AdaptiveContainer(
                   columnSpan: 12,
                   child: Column(
@@ -67,13 +74,18 @@ class _HomeScreenState extends State<HomeScreen> {
                     ],
                   ),
                 ),
+
+                // Recently played
                 AdaptiveContainer(
                   columnSpan: 12,
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Padding(
-                        padding: const EdgeInsets.all(2),
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 20,
+                          vertical: 10,
+                        ),
                         child: Text(
                           'Recently played',
                           style: context.headlineSmall,
@@ -83,10 +95,15 @@ class _HomeScreenState extends State<HomeScreen> {
                     ],
                   ),
                 ),
+
+                // Two tables: Top Songs & New Releases
                 AdaptiveContainer(
                   columnSpan: 12,
                   child: Padding(
-                    padding: const EdgeInsets.all(2),
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 20,
+                      vertical: 20,
+                    ),
                     child: Row(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -97,7 +114,10 @@ class _HomeScreenState extends State<HomeScreen> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Padding(
-                                padding: const EdgeInsets.all(2),
+                                padding: const EdgeInsets.symmetric(
+                                  horizontal: 20,
+                                  vertical: 10,
+                                ),
                                 child: Text(
                                   'Top Songs Today',
                                   style: context.titleLarge,
@@ -113,6 +133,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             ],
                           ),
                         ),
+                        const SizedBox(width: 35), // separación entre tablas
                         Flexible(
                           flex: 10,
                           child: Column(
@@ -120,7 +141,10 @@ class _HomeScreenState extends State<HomeScreen> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Padding(
-                                padding: const EdgeInsets.all(2),
+                                padding: const EdgeInsets.symmetric(
+                                  horizontal: 20,
+                                  vertical: 10,
+                                ),
                                 child: Text(
                                   'New Releases',
                                   style: context.titleLarge,

@@ -20,19 +20,15 @@ final artistsProvider = ArtistsProvider();
 final playlistsProvider = PlaylistsProvider();
 
 const List<NavigationDestination> destinations = [
-  NavigationDestination(
-    label: 'Home',
-    icon: Icon(Icons.arrow_right_rounded),
-    route: '/',
-  ),
+  NavigationDestination(label: 'Home', icon: Icon(Icons.home), route: '/'),
   NavigationDestination(
     label: 'Playlists',
-    icon: Icon(Icons.arrow_right_rounded),
+    icon: Icon(Icons.playlist_add_check),
     route: '/playlists',
   ),
   NavigationDestination(
     label: 'Artists',
-    icon: Icon(Icons.arrow_right_rounded),
+    icon: Icon(Icons.people),
     route: '/artists',
   ),
 ];
@@ -120,6 +116,7 @@ final appRouter = GoRouter(
         ),
       ],
     ),
+    // Si luego agregas más destinos a `destinations`, caerán aquí.
     for (final route in destinations.skip(3))
       GoRoute(
         path: route.route,
